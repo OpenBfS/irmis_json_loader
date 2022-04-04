@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/irmis_json_loader" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
