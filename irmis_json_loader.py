@@ -21,15 +21,17 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QVariant, QDateTime
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
+from qgis.core import Qgis, QgsProject, QgsField, QgsVectorLayer, QgsCoordinateReferenceSystem, QgsFeature, QgsPointXY, QgsGeometry
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .irmis_json_loader_dialog import IrmisJsonLoaderDialog
 import os.path
+import json
 
 
 class IrmisJsonLoader:
@@ -197,4 +199,56 @@ class IrmisJsonLoader:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            pass
+            jsonfile_path = self.dlg.mQgsFileWidget.filePath() # Get path from QgsFileWidget
+            # read file
+            with open(jsonfile_path, 'r', encoding='utf-8-sig') as irmisfile:
+                irmisdata = irmisfile.read()
+            # parse file
+            irmisobj = json.loads(irmisdata)
+            # create layer
+            vl = QgsVectorLayer("Point", "irmis_json", "memory")
+            vl.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
+
+            pr = vl.dataProvider()
+            # add fields default fields
+            pr.addAttributes([QgsField("time", QVariant.DateTime),
+                    QgsField("locid", QVariant.Int),
+                    QgsField("loc", QVariant.String),
+                    QgsField("lon", QVariant.Double),
+                    QgsField("lat", QVariant.Double),
+                    QgsField("val", QVariant.Double),
+                    QgsField("iso",  QVariant.String),
+                    QgsField("surveyid",  QVariant.Double),
+                    QgsField("context",  QVariant.Double),
+                    QgsField("measurementTypeId",  QVariant.Double),
+                    QgsField("measurementUnitTypeId",  QVariant.Double),
+                    QgsField("reportId",  QVariant.Int)])
+                    
+            vl.updateFields() # tell the vector layer to fetch changes from the provider
+            featurelist = []
+            for irmisfeature in irmisobj.get("data"):
+                feature = QgsFeature()
+                feature.setFields(vl.fields())
+                feature.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(float(irmisfeature["lon"]),float(irmisfeature["lat"]))))
+                for key in feature.fields().names():
+                    if key in irmisfeature:
+                        if vl.fields().field(key).type() == QVariant.Int:
+                            feature.setAttribute(key, int(irmisfeature[key]))
+                        elif vl.fields().field(key).type() == QVariant.Double:
+                            feature.setAttribute(key, float(irmisfeature[key]))
+                        elif vl.fields().field(key).type() == QVariant.DateTime:
+                            #2022-04-04 06:00:00
+                            #QDateTime.fromString(irmisfeature[key], "yyyy-MM-dd hh:mm:ss")
+                            feature.setAttribute(key, QDateTime.fromString(irmisfeature[key], "yyyy-MM-dd hh:mm:ss"))
+                        else:
+                            feature.setAttribute(key, str(irmisfeature[key]))
+                if len(irmisfeature) == len(vl.fields()):
+                    featurelist.append(feature)
+                else:
+                    self.iface.messageBar().pushMessage("Error", "irmisfeature len is " + str(len(irmisfeature)), level=Qgis.Critical)
+            pr.addFeatures(featurelist)
+            # update layer's extent when new features have been added
+            # because change of extent in provider is not propagated to the layer
+            vl.updateExtents()
+            QgsProject.instance().addMapLayer(vl)
+            self.iface.mapCanvas().refresh()
