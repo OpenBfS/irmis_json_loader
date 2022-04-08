@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>739</width>
-    <height>445</height>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>390</y>
+     <y>570</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -75,7 +75,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>340</y>
+     <y>520</y>
      <width>711</width>
      <height>27</height>
     </rect>
@@ -101,7 +101,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>280</y>
+     <y>370</y>
      <width>31</width>
      <height>17</height>
     </rect>
@@ -116,7 +116,7 @@ p, li { white-space: pre-wrap; }
      <x>60</x>
      <y>230</y>
      <width>661</width>
-     <height>41</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="html">
@@ -137,9 +137,9 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>280</y>
+     <y>370</y>
      <width>661</width>
-     <height>41</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="html">

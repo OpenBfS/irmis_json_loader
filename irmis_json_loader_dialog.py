@@ -23,7 +23,10 @@
 """
 
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
+from requests.models import PreparedRequest
+import urllib
+from urllib.parse import quote
 
 from qgis.PyQt import uic
 from qgis.PyQt import QtWidgets
@@ -33,29 +36,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'irmis_json_loader_dialog_base.ui'))
 
 # https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements?eventId=255059cb-2c86-43b5-85cf-197694578554&startDate=2022-02-01%2000%3A00&endDate=2022-04-09%200%3A00&valueType=latest&minimumConfidentiality=2&measurementTypeId=1&measurementSubTypeId=1&surveyTypeIds=5&includeRoutineData=true&includeEmergencyData=true
-
-now = datetime.now()
-irmishtml_latest = '''
-<a href="http:www.imis.bfs.de/geoportal/q=2022-04-08&amp;type=latest">
-'''
-irmishtml_latest += '''
-  <span style=" text-decoration: underline; color:#0000ff;">http:www.imis.bfs.de/geoportal/?type=latestfoo&measureend=
-'''
-irmishtml_latest += datetime.strftime(now, '%Y-%m-%d %H:%M:%S')
-irmishtml_latest += '''
-</span></a>
-'''
-
-irmishtml_max = '''
-<a href="http:www.imis.bfs.de/geoportal/q=2022-04-08&amp;type=latest">
-'''
-irmishtml_max += '''
-  <span style=" text-decoration: underline; color:#0000ff;">http:www.imis.bfs.de/geoportal/q=2022-04-08&amp;type=maxbar</span>
-'''
-irmishtml_max += '''
-</a>
-'''
-
+# https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements?eventId=255059cb-2c86-43b5-85cf-197694578554&startDate=2022-01-08+13%3A10&endDate=2022-04-08+13%3A10&valueType=latest&minimumConfidentiality=2&measurementTypeId=1&measurementSubTypeId=1&surveyTypeIds=5&includeRoutineData=true&includeEmergencyData=true<span style=
 
 class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
@@ -67,6 +48,26 @@ class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        self.textBrowser_latest.setHtml(irmishtml_latest)
-        self.textBrowser_max.setHtml(irmishtml_max)
-        print("gui set up")
+        self.textBrowser_latest.setHtml(self.get_irmis_iec_iaea_url('latest'))
+        self.textBrowser_max.setHtml(self.get_irmis_iec_iaea_url('max'))
+        print("done")
+
+    def get_irmis_iec_iaea_url(self, valueTypeParam):
+        irmis_iec_iaea_url = "https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements"
+        url_params = {
+            'eventId': '255059cb-2c86-43b5-85cf-197694578554',
+            'startDate': datetime.strftime(datetime.utcnow() - timedelta(days=90), '%Y-%m-%d %H:%M'),
+            'endDate': datetime.strftime(datetime.utcnow(), '%Y-%m-%d %H:%M'),
+            'valueType': 'latest',
+            'minimumConfidentiality': 2,
+            'measurementTypeId': 1,
+            'measurementSubTypeId': 1,
+            'surveyTypeIds': 5,
+            'includeRoutineData': 'true',
+            'includeEmergencyData': 'true'
+        }
+        irmisreq = PreparedRequest()
+        url_params['valueType'] = str(valueTypeParam)
+        irmisreq.prepare_url(irmis_iec_iaea_url, urllib.parse.urlencode(url_params, quote_via=quote))
+        irmishtml = '<a href="' +  irmisreq.url + '"<span style=" text-decoration: underline; color:#0000ff;">' + irmisreq.url + '</span></a>'
+        return irmishtml
