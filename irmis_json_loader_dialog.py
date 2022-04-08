@@ -32,6 +32,8 @@ from qgis.PyQt import QtWidgets
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'irmis_json_loader_dialog_base.ui'))
 
+# https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements?eventId=255059cb-2c86-43b5-85cf-197694578554&startDate=2022-02-01%2000%3A00&endDate=2022-04-09%200%3A00&valueType=latest&minimumConfidentiality=2&measurementTypeId=1&measurementSubTypeId=1&surveyTypeIds=5&includeRoutineData=true&includeEmergencyData=true
+
 now = datetime.now()
 irmishtml_latest = '''
 <a href="http:www.imis.bfs.de/geoportal/q=2022-04-08&amp;type=latest">
