@@ -35,8 +35,6 @@ from qgis.PyQt import QtWidgets
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'irmis_json_loader_dialog_base.ui'))
 
-# https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements?eventId=255059cb-2c86-43b5-85cf-197694578554&startDate=2022-02-01%2000%3A00&endDate=2022-04-09%200%3A00&valueType=latest&minimumConfidentiality=2&measurementTypeId=1&measurementSubTypeId=1&surveyTypeIds=5&includeRoutineData=true&includeEmergencyData=true
-# https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements?eventId=255059cb-2c86-43b5-85cf-197694578554&startDate=2022-01-08+13%3A10&endDate=2022-04-08+13%3A10&valueType=latest&minimumConfidentiality=2&measurementTypeId=1&measurementSubTypeId=1&surveyTypeIds=5&includeRoutineData=true&includeEmergencyData=true<span style=
 
 class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
@@ -50,7 +48,6 @@ class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
         self.setupUi(self)
         self.textBrowser_latest.setHtml(self.get_irmis_iec_iaea_url('latest'))
         self.textBrowser_max.setHtml(self.get_irmis_iec_iaea_url('max'))
-        print("done")
 
     def get_irmis_iec_iaea_url(self, valueTypeParam):
         irmis_iec_iaea_url = "https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements"
