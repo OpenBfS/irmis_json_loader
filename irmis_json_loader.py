@@ -32,6 +32,7 @@ from .resources import *
 from .irmis_json_loader_dialog import IrmisJsonLoaderDialog
 import os.path
 import json
+from datetime import datetime
 
 
 class IrmisJsonLoader:
@@ -190,6 +191,9 @@ class IrmisJsonLoader:
         if self.first_start == True:
             self.first_start = False
             self.dlg = IrmisJsonLoaderDialog()
+        # set default values on every load of the GUI
+        self.dlg.mQgsFileWidget.setFilePath(None)
+        self.dlg.lineEditLayerName.setText(datetime.strftime(datetime.utcnow(), '%Y%m%d-%H%M_irmis'))
 
         # show the dialog
         self.dlg.show()
@@ -206,7 +210,8 @@ class IrmisJsonLoader:
             # parse file
             irmisobj = json.loads(irmisdata)
             # create layer
-            vl = QgsVectorLayer("Point", "irmis_json", "memory")
+            vl_name = self.dlg.lineEditLayerName.text() if (self.dlg.lineEditLayerName.text() and len(self.dlg.lineEditLayerName.text()) > 0) else "irmis_json"
+            vl = QgsVectorLayer("Point", vl_name, "memory")
             vl.setCrs(QgsCoordinateReferenceSystem('EPSG:4326'))
 
             pr = vl.dataProvider()

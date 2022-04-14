@@ -49,6 +49,7 @@ class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
         self.textBrowser_latest.setHtml(self.get_irmis_iec_iaea_url('latest'))
         self.textBrowser_max.setHtml(self.get_irmis_iec_iaea_url('max'))
 
+
     def get_irmis_iec_iaea_url(self, valueTypeParam):
         irmis_iec_iaea_url = "https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements"
         url_params = {
