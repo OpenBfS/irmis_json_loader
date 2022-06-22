@@ -6,14 +6,14 @@
 name=IRMIS Json Loader
 qgisMinimumVersion=3.4
 description=This plugin imports IRMIS Json files into QGIS
-version=0.5-SNAPSHOT
+version=0.6
 author=Marco Lechner / Bundesamt für Strahlenschutz
 email=mlechner@bfs.de
 
 about=This plugin imports JSON files from IAEA IRMIS into QGIS.
 
-tracker=https://github.com/mlechner/irmis_json_loader/issues
-repository=https://github.com/mlechner/irmis_json_loader
+tracker=https://github.com/OpenBfS/irmis_json_loader/issues
+repository=https://github.com/OpenBfS/irmis_json_loader
 # End of mandatory metadata
 
 # Recommended items:
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python iaea radiation irmis
 
-homepage=https://github.com/mlechner/irmis_json_loader
+homepage=https://github.com/OpenBfS/irmis_json_loader
 category=Vector
 icon=icon.png
 # experimental flag
