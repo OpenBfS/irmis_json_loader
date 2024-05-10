@@ -47,7 +47,7 @@ class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.textBrowser_latest.setHtml(self.get_irmis_iec_iaea_url('latest'))
-        self.textBrowser_max.setHtml(self.get_irmis_iec_iaea_url('max'))
+        self.textBrowser_maximum.setHtml(self.get_irmis_iec_iaea_url('maximum'))
 
 
     def get_irmis_iec_iaea_url(self, valueTypeParam):

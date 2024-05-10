@@ -65,7 +65,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mit diesem Plugin werden JSON files vom IRMIS der IAEA in QGIS importiert. Das &amp;quot;International Radiation Monitoring Information System&amp;quot; (IRMIS) der IAEA ist ein webbasiertes Werkzeug, um Daten aus dem radiologischen Umweltmonitoring im Falle eines nuklearen oder radiologischen Unfalls zu aggregieren und zu visualisieren. Der Zugriff auf das IRMIS und seine Daten ist nur authentifzierten Nutzerinnen und Nutzern möglich. Da die Authentfizierung über ein Single-Sign-On-Verfahren erfolgt, das von QGIS nicht unterstützt wird, muss der Import der vom IMIS heruntergeladenen Daten über dieses Plugin erfolgen.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Die Daten eines Eregnisses (derzeit Ukraine hardcoded) können vom IRMIS über folgende URL für die aktuellsten (&amp;quot;latest&amp;quot;) oder höchsten (&amp;quot;max&amp;quot;) Werte je Messstation heruntergeladen werden:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Die Daten eines Eregnisses (derzeit Ukraine hardcoded) können vom IRMIS über folgende URL für die aktuellsten (&amp;quot;latest&amp;quot;) oder höchsten (&amp;quot;maximum&amp;quot;) Werte je Messstation heruntergeladen werden:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="openExternalLinks">
     <bool>true</bool>
@@ -107,7 +107,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string>max</string>
+    <string>maximum</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="textBrowser_latest">
@@ -133,7 +133,7 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowser_max">
+  <widget class="QTextBrowser" name="textBrowser_maximum">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -147,7 +147,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;URL for requesting max IRMIS data&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;URL for requesting maximum IRMIS data&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="openExternalLinks">
     <bool>true</bool>
