@@ -1,6 +1,6 @@
 # IRMIS JSON Loader Plugin
 
-This experimental Plugin imports radiological data from the IAEA IRMIS (<https://www.iaea.org/publications/13641/international-radiation-monitoring-information-system>) into QGIS. A valid account is needed to access IRMIS and to download the relevat data as JSON from IRMIS. Usually access is restricted to specific registered authorities only. The locally saved JSON files then can be imported using this Plugin. If you have such an access, this Plugin helps you downloading the data from IRMIS, by generating the needed URLs.
+This Plugin imports radiological data from the IAEA IRMIS (<https://www.iaea.org/publications/13641/international-radiation-monitoring-information-system>) into QGIS. A valid account is needed to access IRMIS and to download the relevat data as JSON from IRMIS. Usually access is restricted to specific registered authorities only. The locally saved JSON files then can be imported using this Plugin. If you have such an access, this Plugin helps you downloading the data from IRMIS, by generating the needed URLs.
 
 ## License
 
