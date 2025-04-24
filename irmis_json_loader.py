@@ -198,7 +198,7 @@ class IrmisJsonLoader:
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.dlg.exec()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
@@ -248,23 +248,23 @@ class IrmisJsonLoader:
                                 feature.setAttribute(key, float(irmisfeature[key]))
                             except:
                                 feature.setAttribute(key, None)
-                                QgsMessageLog.logMessage("Float conversion failed for " + str(key) + " on " + str(irmisfeature["locationId"]), level=Qgis.Info)
+                                QgsMessageLog.logMessage("Float conversion failed for " + str(key) + " on " + str(irmisfeature["locationId"]), level=Qgis.MessageLevel.Info)
                         elif vl.fields().field(key).type() == QVariant.DateTime:
                             #2022-04-04 06:00:00 or 2024-10-18T06:00:00
                             #QDateTime.fromString(irmisfeature[key], "yyyy-MM-dd hh:mm:ss") or QDateTime.fromString(irmisfeature[key], Qt.ISODate)
                             try:
-                                feature.setAttribute(key, QDateTime.fromString(irmisfeature[key], Qt.ISODate))
+                                feature.setAttribute(key, QDateTime.fromString(irmisfeature[key], Qt.DateFormat.ISODate))
                             except:
                                 try:
                                     feature.setAttribute(key, QDateTime.fromString(irmisfeature[key], "yyyy-MM-dd hh:mm:ss"))
                                 except:
-                                    QgsMessageLog.logMessage("Both datetime conversions failed for " + str(key) + " on " + str(irmisfeature["locationId"]), level=Qgis.Warning)
+                                    QgsMessageLog.logMessage("Both datetime conversions failed for " + str(key) + " on " + str(irmisfeature["locationId"]), level=Qgis.MessageLevel.Warning)
                         else:
                             feature.setAttribute(key, str(irmisfeature[key]))
                 if len(irmisfeature) == len(vl.fields()):
                     featurelist.append(feature)
                 else:
-                    self.iface.messageBar().pushMessage("Error", "irmisfeature len is " + str(len(irmisfeature)) + " on " + str(irmisfeature["locationId"] + " but table size is " + str(len(vl.fields()))), level=Qgis.Critical)
+                    self.iface.messageBar().pushMessage("Error", "irmisfeature len is " + str(len(irmisfeature)) + " on " + str(irmisfeature["locationId"] + " but table size is " + str(len(vl.fields()))), level=Qgis.MessageLevel.Critical)
             pr.addFeatures(featurelist)
             # update layer's extent when new features have been added
             # because change of extent in provider is not propagated to the layer
