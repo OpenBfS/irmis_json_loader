@@ -21,7 +21,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QVariant, QDateTime, Qt
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QVariant, QDateTime, Qt, QMetaType
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
@@ -32,7 +32,7 @@ from .resources import *
 from .irmis_json_loader_dialog import IrmisJsonLoaderDialog
 import os.path
 import json
-from datetime import datetime
+from datetime import datetime, UTC
 
 
 class IrmisJsonLoader:
@@ -193,7 +193,7 @@ class IrmisJsonLoader:
             self.dlg = IrmisJsonLoaderDialog()
         # set default values on every load of the GUI
         self.dlg.mQgsFileWidget.setFilePath(None)
-        self.dlg.lineEditLayerName.setText(datetime.strftime(datetime.utcnow(), '%Y%m%d-%H%M_irmis'))
+        self.dlg.lineEditLayerName.setText(datetime.strftime(datetime.now(UTC), '%Y%m%d-%H%M_irmis'))
 
         # show the dialog
         self.dlg.show()
@@ -216,19 +216,19 @@ class IrmisJsonLoader:
 
             pr = vl.dataProvider()
             # add fields default fields
-            pr.addAttributes([QgsField("startTime", QVariant.DateTime),
-                    QgsField("time", QVariant.DateTime),
-                    QgsField("locationId", QVariant.Int),
-                    QgsField("location", QVariant.String),
-                    QgsField("longitude", QVariant.Double),
-                    QgsField("latitude", QVariant.Double),
-                    QgsField("value", QVariant.Double),
-                    QgsField("countryIsoCode",  QVariant.String),
-                    QgsField("surveyTypeId",  QVariant.Double),
-                    QgsField("reportContextId",  QVariant.Double),
-                    QgsField("measurementTypeId",  QVariant.Double),
-                    QgsField("measurementUnitTypeId",  QVariant.Double),
-                    QgsField("reportId",  QVariant.Int)])
+            pr.addAttributes([QgsField("startTime", QMetaType.Type.QDateTime),
+                    QgsField("time", QMetaType.Type.QDateTime),
+                    QgsField("locationId", QMetaType.Type.Int),
+                    QgsField("location", QMetaType.Type.QString),
+                    QgsField("longitude", QMetaType.Type.Double),
+                    QgsField("latitude", QMetaType.Type.Double),
+                    QgsField("value", QMetaType.Type.Double),
+                    QgsField("countryIsoCode",  QMetaType.Type.QString),
+                    QgsField("surveyTypeId",  QMetaType.Type.Double),
+                    QgsField("reportContextId",  QMetaType.Type.Double),
+                    QgsField("measurementTypeId",  QMetaType.Type.Double),
+                    QgsField("measurementUnitTypeId",  QMetaType.Type.Double),
+                    QgsField("reportId",  QMetaType.Type.Int)])
                     
             vl.updateFields() # tell the vector layer to fetch changes from the provider
             featurelist = []

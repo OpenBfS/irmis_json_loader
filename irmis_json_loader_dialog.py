@@ -23,7 +23,7 @@
 """
 
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from requests.models import PreparedRequest
 import urllib
 from urllib.parse import quote
@@ -54,8 +54,8 @@ class IrmisJsonLoaderDialog(QtWidgets.QDialog, FORM_CLASS):
         irmis_iec_iaea_url = "https://iec.iaea.org/IRMIS/Visualisation/api/GetAggregatedMeasurements"
         url_params = {
             'eventId': '255059cb-2c86-43b5-85cf-197694578554',
-            'startDate': datetime.strftime(datetime.utcnow() - timedelta(days=90), '%Y-%m-%d %H:%M'),
-            'endDate': datetime.strftime(datetime.utcnow(), '%Y-%m-%d %H:%M'),
+            'startDate': datetime.strftime(datetime.now(UTC) - timedelta(days=90), '%Y-%m-%d %H:%M'),
+            'endDate': datetime.strftime(datetime.now(UTC), '%Y-%m-%d %H:%M'),
             'valueType': 'latest',
             'minimumConfidentiality': 2,
             'measurementTypeId': 1,
