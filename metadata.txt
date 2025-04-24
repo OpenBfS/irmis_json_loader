@@ -5,6 +5,7 @@
 [general]
 name=IRMIS Json Loader
 qgisMinimumVersion=3.4
+supportsQt6=True
 description=This plugin imports IRMIS Json files into QGIS
 version=1.0
 author=Marco Lechner, Bundesamt für Strahlenschutz
